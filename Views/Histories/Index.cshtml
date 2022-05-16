@@ -1,0 +1,67 @@
+﻿@model IEnumerable<MSOC.Models.History>
+
+@{
+    ViewData["Title"] = "Заказы";
+}
+
+<h1>Заказы</h1>
+
+<p>
+    <a type="button" asp-action="Create" class="btn btn-outline-info">Создать заказ</a>
+</p>
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <p class="col-md-5">
+            Поиск по заказчику:
+            <input name="searchStringCustomer" value="@ViewBag.Cust" class="form-control" />
+        </p>
+
+        <p class="col-md-5">
+            Поиск по каталожному номеру:
+            <input name="searchStringCatalogNumber" value="@ViewBag.Unit" class="form-control" />
+        </p>
+        <p class="col-md-2">
+            <br>
+            <input type="submit" value="Поиск" class="btn btn-primary" />
+        </p>
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Название
+            </th>
+            <th>
+                Заказчик
+            </th>
+            <th>
+                Дата
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Orders" asp-action="Index" asp-route-historyId="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
+                </td>                
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-pencil"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash-alt"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

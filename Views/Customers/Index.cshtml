@@ -1,0 +1,40 @@
+﻿@model IEnumerable<MSOC.Models.Customer>
+
+@{
+    ViewData["Title"] = "Заказчики";
+}
+
+<h1>Заказчики</h1>
+
+<p>
+    <a type="button" class="btn btn-outline-secondary" asp-action="Create">Добавить</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Название
+            </th>
+            <th>
+                Адрес
+            </th>            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Index), @Html.DisplayFor(modelItem => item.Region), @Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.Adress)
+            </td>            
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-pencil"></i></a> 
+                <a asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash-alt"></i></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
